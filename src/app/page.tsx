@@ -17,7 +17,7 @@ const HomePage = () => {
         setUserLoggedIn(false);
         setLoading(false);
         //router.push('/test')
-        router.push('/auth/signin'); // Redirect to sign-in if not logged in
+        router.push('/login'); // Redirect to sign-in if not logged in
       }
     });
 

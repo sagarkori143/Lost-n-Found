@@ -11,7 +11,7 @@ const Dashboard = () => {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (!user) {
-        router.push('/auth/signin'); // Redirect to sign-in if not logged in
+        router.push('/login'); // Redirect to sign-in if not logged in
       } else {
         setUser(user);
       }
