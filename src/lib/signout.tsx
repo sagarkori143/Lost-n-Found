@@ -1,5 +1,5 @@
 import { signOut, getAuth } from 'firebase/auth';
-import { auth } from '../../lib/firebase'; // Your Firebase instance
+import { auth } from './firebase'; // Your Firebase instance
 
 // Reusable Sign-Out Function
 export const handleSignOut = async () => {

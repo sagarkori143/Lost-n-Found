@@ -2,7 +2,7 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
-import { auth } from '../../lib/firebase';
+import { auth } from '../lib/firebase';
 
 const HomePage = () => {
   const [loggedIn,setUserLoggedIn]=useState(false);

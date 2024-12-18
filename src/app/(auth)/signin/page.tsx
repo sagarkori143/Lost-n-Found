@@ -16,7 +16,7 @@ import { Label } from "@/components/ui/label"
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { useEffect, useState } from 'react';
 import { signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
-import { auth } from '../../../../lib/firebase'
+import { auth } from '../../../lib/firebase'
 import { useRouter } from 'next/navigation';
 
 export default function LoginForm({
