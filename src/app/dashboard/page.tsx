@@ -8,6 +8,7 @@ import logo from '../../../public/lost (2).png'
 import { handleSignOut } from '@/lib/signout';
 import { Button } from "@/components/ui/button"
 import ReportItemPopup from '@/components/ReportItem';
+import Link from 'next/link';
 import {
   Drawer,
   DrawerClose,
@@ -102,10 +103,12 @@ const Dashboard = () => {
       <div className="absolute pointer-events-none inset-0 flex items-center justify-center bg-black  [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)]"></div>
       <div className=' flex-col items-center'>
         <div className='flex justify-between pl-6 pr-6 items-center'>
+          <Link href="/">
           <div className='flex justify-center items-center  text-center z-10'>
             <Image height={45} width={45} alt='logo' src={logo} className='z-10' />
             <h1 className='text-[22px] text-bold text-white'>Lost and found</h1>
           </div>
+          </Link>
           <div className='p-4'>
             {user ? (
               <div>
