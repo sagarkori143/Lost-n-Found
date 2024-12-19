@@ -39,8 +39,10 @@ const ReportItemPopup: React.FC = () => {
         console.log("For each image func done", images);
 
         try {
+            const BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000";
             setloading(true)
-            const response = await fetch("http://localhost:3000/api/items", {
+            const uploadUrl = `${BASE_URL}/api/items`;
+            const response = await fetch(uploadUrl, {
                 method: "POST",
                 body: formData,
             });
