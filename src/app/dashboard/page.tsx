@@ -20,15 +20,20 @@ import Items from '@/components/Items';
 
 
 const Dashboard = () => {
-  
+
   const [user, setUser] = useState<any>(null);
-  const router= useRouter();
+  const [rollNumber, setRollNumber] = useState<String | null>(null)
+  const router = useRouter();
   useEffect(() => {
+
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (!user) {
         router.push('/login'); // Redirect to sign-in if not logged in
       } else {
         setUser(user);
+        console.log("Current user:", user);
+        const roll = user.email?.split('@')[0];
+        if (roll) setRollNumber(roll.toUpperCase());
       }
     });
 
@@ -40,66 +45,65 @@ const Dashboard = () => {
     <div>
       <div className='flex p-4'>
         <div className='p-4'>
-      {user ? (
-        <div>
-        
-        <Drawer>
-        <DrawerTrigger asChild>
-          <Button variant="destructive">User</Button>
-        </DrawerTrigger>
-        <DrawerContent>
-          <div className="mx-auto w-full max-w-sm">
-            <DrawerHeader>
-              <DrawerTitle>Hi {user.displayName || user.email}</DrawerTitle>
-              <DrawerDescription>Set your daily activity goal.</DrawerDescription>
-            </DrawerHeader>
-            <div className="p-4 pb-0">
-              <div className="flex items-center justify-center space-x-2">
-                
-                <div className="flex-1 text-center">
-                  <div className="text-7xl font-bold tracking-tighter">
-                  
+          {user ? (
+            <div>
+
+              <Drawer>
+                <DrawerTrigger asChild>
+                  {
+                    user ? (
+                      <div className='h-[50px] w-[50px] rounded-[50%] cursor-pointer overflow-hidden'>
+                        <img src={user.photoURL} alt='UserImage' />
+                      </div>
+                    )
+                      :
+                      (
+                        <Button>User</Button>
+                      )
+                  }
+                </DrawerTrigger>
+                <DrawerContent>
+                  <div className="mx-auto w-full max-w-sm">
+                    <DrawerHeader>
+                      <div className='flex '>
+                        <div className='align-center h-[50px] w-[50px] rounded-[50%] border-solid border-[2px] cursor-pointer overflow-hidden'>
+                          <img src={user.photoURL} alt='UserImage' />
+                        </div>
+                        <div className='pl-5 mt-4'>
+                          <DrawerTitle>Hi {user.displayName || user.email} 👋</DrawerTitle>
+                        </div>
+                      </div>
+                      <div><h3 className='pl-4 text-left'>{rollNumber}</h3></div>
+                      <DrawerDescription>Indian institute of information technology, Jabalpur</DrawerDescription>
+                    </DrawerHeader>
+
+                    <DrawerFooter>
+                      <Button className='bg-red-700 hover:bg-red-800' onClick={handleSignOut}>Sign Out</Button>
+                      <DrawerClose asChild>
+                        <Button variant="outline">Close</Button>
+                      </DrawerClose>
+                    </DrawerFooter>
                   </div>
-                  <div className="text-[0.70rem] uppercase text-muted-foreground">
-                    Calories/day
-                  </div>
-                </div>
-                
-              </div>
-              <div className="mt-3 h-[120px]">
-                
-              </div>
+                </DrawerContent>
+              </Drawer>
             </div>
-            <DrawerFooter>
-            <button onClick={handleSignOut}>
-            Sign Out
-        </button>
-              <Button>Submit</Button>
-              <DrawerClose asChild>
-                <Button variant="outline">Cancel</Button>
-              </DrawerClose>
-            </DrawerFooter>
-          </div>
-        </DrawerContent>
-      </Drawer>
+          ) : (
+            <p>Loading...</p>
+          )}
+        </div>
+
+
+        <div className='mx-auto w-1/2 bg-gray-200 p-4 text-center'>
+          Lost and found
+        </div>
+        <div className='p-4'>
+          Report Lost/Found
+        </div>
       </div>
-      ) : (
-        <p>Loading...</p>
-      )}
-    </div>
-    
-    
-    <div className='mx-auto w-1/2 bg-gray-200 p-4 text-center'>
-      Lost and found
-    </div>
-    <div className='p-4'>
-      Report Lost/Found
-    </div>
-    </div>
-    <div className='p-8'>
-      <Items/>
-    </div>
-    
+      <div className='p-8'>
+        <Items />
+      </div>
+
 
     </div>
   );
