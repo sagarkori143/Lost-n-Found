@@ -112,7 +112,7 @@ const Dashboard = () => {
       
       {isPopupOpen? (
         <div className=" fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-20 ">
-          <div className="bg-white overflow-hidden flex-col justify-center items-center lg:p-6 lg:m-6 p-2 rounded-lg shadow-lg max-h-[80vh] h-full w-full max-w-[90vw] md:max-w-[70vw] lg:max-w-[70vw]">
+          <div className="bg-white overflow-auto flex-col justify-center items-center lg:p-6 lg:m-6 p-2 rounded-lg shadow-lg max-h-[80vh] h-full w-full max-w-[90vw] md:max-w-[70vw] lg:max-w-[70vw]">
           <h1 className='text-center text-[20px]'>Report new item!</h1>
             <ReportItemPopup />
             <div className='pt-3 items-center flex justify-end'><Button variant="destructive" onClick={togglePopup}>Cancel</Button></div>

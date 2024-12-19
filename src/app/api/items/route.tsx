@@ -6,8 +6,8 @@ import cloudinary from "@/lib/cloudinary";
 // GET: Fetch all items
 export async function GET() {
   try {
-    const response= await connectDB();
-    console.log(response);
+    const response = await connectDB();
+    console.log("Trying to fetch all the entries form the database");
     const items: IItem[] = await Item.find();
     return NextResponse.json(items, { status: 200 });
   } catch (error) {
@@ -22,13 +22,30 @@ export async function POST(request: NextRequest) {
   try {
     console.log("The POST request called!");
     const formData = await request.formData();
-    const name = formData.get("name") as string;
+    
+    // Extract new fields from formData
+    const title = formData.get("title") as string;
     const description = formData.get("description") as string;
+    const dateLostFound = formData.get("dateLostFound") as string; // Date lost/found
+    const status = formData.get("status") as string; // Status
+    const type = formData.get("type") as string; // Type
+    const phone = formData.get("phone") as string;
+    const whatsapp = formData.get("whatsapp") as string;
+    const email = formData.get("email") as string;
+    const username = formData.get("username") as string;
+    const collegeEmail = formData.get("collegeEmail") as string;
+    const rollNo = formData.get("rollNo") as string;
+    const photoURL = formData.get("photoURL") as string;
     const files = formData.getAll("images") as File[];
 
-    if (!name || !description || files.length === 0) {
+    if (!title || !description || !dateLostFound || !status || !type || files.length === 0) {
       console.log("Missing fields detected!");
       return NextResponse.json({ message: "Missing fields" }, { status: 400 });
+    }
+
+    // Custom validation: At least one contact detail required
+    if (!phone && !whatsapp && !email) {
+      return NextResponse.json({ message: "At least one contact detail (phone, whatsapp, or email) is required." }, { status: 400 });
     }
 
     console.log("Connecting to DB...");
@@ -60,7 +77,23 @@ export async function POST(request: NextRequest) {
     console.log("Image URLs:", imageUrls);
 
     // Save to MongoDB
-    const newItem = new Item({ name, description, imageUrls });
+    const newItem = new Item({
+      title,
+      description,
+      dateLostFound: new Date(dateLostFound), // Ensure it's a Date object
+      dateAdded: new Date(), // Automatically set to current time
+      phone,
+      whatsapp,
+      email,
+      username,
+      collegeEmail,
+      rollNo,
+      photoURL, // Assuming photoURL is also an image URL that is being passed
+      imageUrls,
+      status,
+      type,
+    });
+
     await newItem.save();
     console.log("Item saved:", newItem);
 

@@ -1,121 +1,208 @@
 "use client";
-import { Loader2 } from "lucide-react"
-import React, { useState } from "react";
+import { Loader2 } from "lucide-react";
 import { Textarea } from "./ui/textarea";
+import { useEffect, useState } from 'react';
+import { onAuthStateChanged } from 'firebase/auth';
+import { auth } from '../lib/firebase';
+import { useRouter } from 'next/navigation';
 // For the UI components
-import { Button } from "@/components/ui/button"
+import { Button } from "@/components/ui/button";
 import {
-    Card,
-    CardContent,
-    CardDescription,
-    CardHeader,
-    CardTitle,
-} from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 
 const ReportItemPopup: React.FC = () => {
-    const [name, setName] = useState<string>("");
-    const [description, setDescription] = useState<string>("");
-    const [images, setImages] = useState<File[]>([]);
-    const [loading, setloading] = useState(false);
+  const [title, setTitle] = useState<string>("");
+  const [description, setDescription] = useState<string>("");
+  const [dateLostFound, setDateLostFound] = useState<string>("");
+  const [status, setStatus] = useState<string>("Active");
+  const [type, setType] = useState<string>("Lost");
+  const [phone, setPhone] = useState<string>("");
+  const [whatsapp, setWhatsapp] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
+  const [username, setusername] = useState<string>("");
+  const [rollNo, setRollNumber]= useState<string>("");
+  const [photoURL, setPhotoURL]= useState<string>("");
+  const [collegeEmail, setCollegeEmail] = useState<string>("");
+  const [images, setImages] = useState<File[]>([]);
+  const [loading, setLoading] = useState(false);
 
-    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        if (e.target.files) {
-            setImages(Array.from(e.target.files)); // Convert FileList to Array of Files
-        }
-    };
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files) {
+      setImages(Array.from(e.target.files)); // Convert FileList to Array of Files
+    }
+  };
+  const router = useRouter();
 
-    const handleSubmit = async (e: React.FormEvent) => {
-        console.log("Handle submit function started");
-        e.preventDefault();
-        console.log("Prevent default done");
-        const formData = new FormData();
-        console.log("New form data built");
-        formData.append("name", name);
-        formData.append("description", description);
-        console.log("Name and description parsed:", name, description);
-        images.forEach((image) => formData.append("images", image));
-        console.log("For each image func done", images);
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
 
-        try {
-            setloading(true)
-            const response = await fetch("https://lost-n-found-orcin.vercel.app/api/items", {
-                method: "POST",
-                body: formData,
-            });
-            console.log("Received response:", response);
-            console.log("Converting response to JSON...");
-            const result = await response.json().catch(() => {
-                throw new Error("Server returned non-JSON response");
-            });
+    const formData = new FormData();
+    formData.append("title", title);
+    formData.append("description", description);
+    formData.append("dateLostFound", dateLostFound);
+    formData.append("status", status);
+    formData.append("type", type);
+    formData.append("phone", phone);
+    formData.append("whatsapp", whatsapp);
+    formData.append("email", email);  
+    formData.append("username",username);
+    formData.append("rollNo",rollNo);
+    formData.append("collegeEmail",collegeEmail);
+    formData.append("photoURL",photoURL);
+    images.forEach((image) => formData.append("images", image));
 
-            if (response.ok) {
-                alert("Item added successfully!");
-                setloading(false)
-                setName("");
-                setDescription("");
-                setImages([]);
-            } else {
-                alert(`Error: ${result.message || "Something went wrong"}`);
-            }
-        } catch (error) {
-            console.error("Error uploading item:", error);
-            alert("An error occurred while uploading the item.");
-        }
-    };
+    try {
+      setLoading(true);
+      const response = await fetch("https://lost-n-found-orcin.vercel.app/api/items", {
+        method: "POST",
+        body: formData,
+      });
 
-    return (
-        <div className="flex-col border-[2px] rounded-xl h-[85%]  border-black p-5">
-            <form onSubmit={handleSubmit} encType="multipart/form-data" className="flex flex-col gap-5">
-                
-                <div className="grid gap-2">
-                  <Label htmlFor="email">Title</Label>
-                  <Input
-                    type="text"
-                    placeholder="Title"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                    required
-                  />
-                </div>
-                <div className="grid w-full gap-1.5">
-                    <Label htmlFor="message">Item Description</Label>
-                    <Textarea
-                        placeholder="Description"
-                        value={description}
-                        onChange={(e) => setDescription(e.target.value)}
-                        required
-                    />
-                </div>
-                <input
-                    type="file"
-                    multiple
-                    accept="image/*"
-                    onChange={handleFileChange}
-                    required
-                />
-                
-               {/* This is the submit button */}
-                <div className="flex items-center justify-center">
-                {
-                    loading ?
-                        (
-                            <Button className="w-[50%]" disabled>
-                                <Loader2 className="animate-spin" />
-                                Submitting
-                            </Button>
-                        )
-                        :
-                        (
-                            <Button className="w-[50%]" type="submit">Submit</Button>
-                        )
-                }
-                </div>
+      const result = await response.json().catch(() => {
+        setLoading(false);
+        throw new Error("Server returned non-JSON response");
+        
+      });
 
-            </form>
+      if (response.ok) {
+        alert("Item added successfully!");
+        setLoading(false);
+        setTitle("");
+        setDescription("");
+        setDateLostFound("");
+        setStatus("");
+        setType("");
+        setPhone("");
+        setWhatsapp("");
+        setEmail("");
+        setImages([]);
+      } else {
+        setLoading(false);
+        alert(`Error: ${result.message || "Something went wrong"}`);
+      }
+    } catch (error) {
+      setLoading(false);
+      console.error("Error uploading item:", error);
+      alert("An error occurred while uploading the item.");
+    }
+  };
+
+  // Checking for User
+  useEffect(() => {
+
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (!user) {
+        router.push('/login'); // Redirect to sign-in if not logged in
+      } else {
+        if(user.displayName)setusername(user.displayName);
+        if(user.email)setCollegeEmail(user.email);
+        if(user.photoURL)setPhotoURL(user.photoURL);
+        const roll = user.email?.split('@')[0];
+        if(roll)setRollNumber(roll.toUpperCase());
+      }
+    });
+
+    return () => unsubscribe();
+  }, []);
+
+  return (
+    <div className="flex-col border-[2px] rounded-xl min-h-[85%] border-black p-5">
+      <form onSubmit={handleSubmit} encType="multipart/form-data" className="flex flex-col gap-5">
+        <div className="grid gap-2">
+          <Label htmlFor="title">Title</Label>
+          <Input
+            type="text"
+            placeholder="Title"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            required
+          />
         </div>
-    );
+
+        <div className="grid w-full gap-1.5">
+          <Label htmlFor="description">Item Description</Label>
+          <Textarea
+            placeholder="Description"
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            required
+          />
+        </div>
+
+        <div className="grid gap-2">
+          <Label htmlFor="dateLostFound">Date Lost/Found</Label>
+          <Input
+            type="date"
+            value={dateLostFound}
+            onChange={(e) => setDateLostFound(e.target.value)}
+            required
+          />
+        </div>
+
+        <div className="grid gap-2">
+          <Label htmlFor="phone">Phone</Label>
+          <Input
+            type="tel"
+            placeholder="Phone"
+            value={phone}
+            onChange={(e) => setPhone(e.target.value)}
+          />
+        </div>
+
+        <div className="grid gap-2">
+          <Label htmlFor="whatsapp">Whatsapp</Label>
+          <Input
+            type="tel"
+            placeholder="Whatsapp"
+            value={whatsapp}
+            onChange={(e) => setWhatsapp(e.target.value)}
+          />
+        </div>
+
+        <div className="grid gap-2">
+          <Label htmlFor="email">Email</Label>
+          <Input
+            type="email"
+            placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+        </div>
+
+        <div className="grid gap-2">
+          <Label htmlFor="images">Images</Label>
+          <input
+            type="file"
+            multiple
+            accept="image/*"
+            onChange={handleFileChange}
+            required
+          />
+        </div>
+
+        {/* This is the submit button */}
+        <div className="flex items-center justify-center">
+          {loading ? (
+            <Button className="w-[50%]" disabled>
+              <Loader2 className="animate-spin" />
+              Submitting
+            </Button>
+          ) : (
+            <Button className="w-[50%]" type="submit">
+              Submit
+            </Button>
+          )}
+        </div>
+      </form>
+    </div>
+  );
 };
 
 export default ReportItemPopup;
