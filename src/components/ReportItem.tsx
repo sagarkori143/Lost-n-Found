@@ -113,7 +113,7 @@ const ReportItemPopup: React.FC = () => {
   }, []);
 
   return (
-    <div className="flex-col border-[2px] rounded-xl min-h-[85%] border-black p-5">
+    <div className="text-white flex-col border-[2px] rounded-xl min-h-[85%] border-black p-5">
       <form onSubmit={handleSubmit} encType="multipart/form-data" className="flex flex-col gap-5">
         <div className="grid gap-2">
           <Label htmlFor="title">Title</Label>
@@ -136,8 +136,8 @@ const ReportItemPopup: React.FC = () => {
           />
         </div>
 
-        <div className="grid gap-2">
-          <Label htmlFor="dateLostFound">Date Lost/Found</Label>
+        <div className="grid gap-2 text-gray-400">
+          <Label htmlFor="dateLostFound" className="text-white">Date Lost/Found</Label>
           <Input
             type="date"
             value={dateLostFound}
@@ -190,12 +190,12 @@ const ReportItemPopup: React.FC = () => {
         {/* This is the submit button */}
         <div className="flex items-center justify-center">
           {loading ? (
-            <Button className="w-[50%]" disabled>
+            <Button className="w-[50%] bg-white text-black" disabled>
               <Loader2 className="animate-spin" />
               Submitting
             </Button>
           ) : (
-            <Button className="w-[50%]" type="submit">
+            <Button className="w-[50%] bg-white text-black hover:bg-gray-400 hover:text-black" type="submit">
               Submit
             </Button>
           )}
