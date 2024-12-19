@@ -18,19 +18,41 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from "@/components/ui/drawer"
-import Items from '@/components/Items';
+import {Items} from '@/components/Items';
 
 
 
 const Dashboard = () => {
-
+  const [data, setData] = useState<DataType[] | null>(null);
+  const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
   const [user, setUser] = useState<any>(null);
   const [rollNumber, setRollNumber] = useState<String | null>(null)
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const router = useRouter();
+
+  type DataType = {
+    collegeEmail: string;
+    dateAdded: string;
+    dateLostFound: string;
+    description: string;
+    email: string;
+    imageUrls: string[];
+    phone: string;
+    photoURL: string;
+    rollNo: string;
+    status: string;
+    title: string;
+    type: string;
+    username: string;
+    whatsapp: string;
+    __v: number;
+    _id: string;
+  };
+  
   useEffect(() => {
 
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
+    const unsubscribe = onAuthStateChanged(auth, (user) =>{
       if (!user) {
         router.push('/login'); // Redirect to sign-in if not logged in
       } else {
@@ -40,14 +62,41 @@ const Dashboard = () => {
         if (roll) setRollNumber(roll.toUpperCase());
       }
     });
+    const fetchData = async () => {
+      try {
+        const response = await fetch("http://localhost:3000/api/items", {
+          method: "GET",
+         
+        });
+        if (!response.ok) {
+          throw new Error(`Error: ${response.status}`);
+        }
+        const result: DataType[] = await response.json(); // Ensure the correct type
+        setData(result);
+        
+        
+        
+      } catch (err) {
+        setError(err instanceof Error ? err.message : 'Unknown error');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    // Call the asynchronous function
+    fetchData();
+    
+    
 
     return () => unsubscribe();
   }, []);
-
+  
   const togglePopup = () => {
     setIsPopupOpen(!isPopupOpen); // Toggle popup visibility
   };
-
+  if (loading) {
+    return <p>Loading...</p>;
+  }
   return (
     <div className="h-full w-full bg-black bg-grid-white/[0.2] relative flex items-center justify-center">
       <div className="absolute pointer-events-none inset-0 flex items-center justify-center bg-black  [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)]"></div>
@@ -108,7 +157,7 @@ const Dashboard = () => {
           </div>
         </div>
         <div className='p-8'>
-          <Items />
+          <Items data={data} />
         </div>
 
 

@@ -2,17 +2,36 @@
 import Image from "next/image";
 import {MotionDiv} from './MotionDiv'
 
-export interface ItemProp {
-  id: string;
-  name: string;
-  image: {
-    original: string;
-  };
-  kind: string;
+// export interface ItemProp {
+//   id: string;
+//   name: string;
+//   image: {
+//     original: string;
+//   };
+//   kind: string;
  
-    episodes: number;
-    episodes_aired: number;
-    score: string;
+//     episodes: number;
+//     episodes_aired: number;
+//     score: string;
+  
+// }
+export interface ItemProp {
+  collegeEmail: string;
+  dateAdded: string;
+  dateLostFound: string;
+  description: string;
+  email: string;
+  imageUrls: string[];
+  phone: string;
+  photoURL: string;
+  rollNo: string;
+  status: string;
+  title: string;
+  type: string;
+  username: string;
+  whatsapp: string;
+  __v: number;
+  _id: string;
   
 }
 
@@ -39,25 +58,24 @@ function ItemCard({ item,index }: Prop) {
       duration:0.5
      }}
      viewport={{amount:0}}
-
-
-     className="max-w-sm rounded relative w-full">
+     className="max-w-md rounded relative w-full">
       <div className="relative w-full h-[37vh]">
         <Image
-          src={item.image.original}
-          alt={item.name}
+          src={item.imageUrls[0]}
+          alt={item.title}
           fill
-          className="rounded-xl"
+          className="rounded-xl "
         />
       </div>
       <div className="py-4 flex flex-col gap-3">
         <div className="flex justify-between items-center gap-1">
           <h2 className="font-bold text-white text-xl line-clamp-1 w-full">
-            {item.name}
+            {item.title}
           </h2>
           <div className="py-1 px-2 bg-[#161921] rounded-sm">
             <p className="text-white text-sm font-bold capitalize">
-              {item.kind}
+              
+              {item.type}
             </p>
           </div>
         </div>

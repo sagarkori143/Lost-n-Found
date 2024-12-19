@@ -57,10 +57,11 @@ const ReportItemPopup: React.FC = () => {
     formData.append("collegeEmail",collegeEmail);
     formData.append("photoURL",photoURL);
     images.forEach((image) => formData.append("images", image));
+    console.log(formData.get("type"));
 
     try {
       setLoading(true);
-      const response = await fetch("https://lost-n-found-orcin.vercel.app/api/items", {
+      const response = await fetch("http://localhost:3000/api/items", {
         method: "POST",
         body: formData,
       });
@@ -145,7 +146,17 @@ const ReportItemPopup: React.FC = () => {
             required
           />
         </div>
-
+        <div className="grid gap-2 text-gray-400 ">
+                <label htmlFor="status-select">Type </label>
+              <select 
+              value={type}
+              onChange={(e)=>setType(e.target.value)}
+              id="status-select" className="bg-black text-white p-2 rounded border border-white" >
+                <option value="" disabled>Select an option</option>
+                <option value="lost">Lost</option>
+                <option value="found">Found</option>
+              </select>
+        </div>
         <div className="grid gap-2">
           <Label htmlFor="phone">Phone</Label>
           <Input
