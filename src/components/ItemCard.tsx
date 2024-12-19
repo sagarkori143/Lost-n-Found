@@ -47,6 +47,7 @@ const variants={
 }
 
 function ItemCard({ item,index }: Prop) {
+  const color= item.type=="Lost"?"red":"blue";
   return (
     <MotionDiv
      variants={variants}
@@ -64,7 +65,7 @@ function ItemCard({ item,index }: Prop) {
           src={item.imageUrls[0]}
           alt={item.title}
           fill
-          className="rounded-xl "
+          className={`rounded-xl  border-2 border-${color}-600`}
         />
       </div>
       <div className="py-4 flex flex-col gap-3">
