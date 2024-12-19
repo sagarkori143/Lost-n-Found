@@ -19,10 +19,7 @@ import { signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from 
 import { auth } from '../../../lib/firebase'
 import { useRouter } from 'next/navigation';
 
-export default function LoginForm({
-  className,
-  ...props
-}: React.ComponentPropsWithoutRef<"div">) {
+export default function LoginForm() {
     const [user, setUser] = useState<Object | null>(null);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -82,7 +79,7 @@ export default function LoginForm({
 
 
   return (
-    <div className={cn("flex flex-col gap-6", className)} {...props}>
+    <div className={cn("flex flex-col gap-6")} >
       <Card>
         <CardHeader className="text-center">
           <CardTitle className="text-xl">Welcome Champ!</CardTitle>
