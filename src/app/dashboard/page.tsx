@@ -4,6 +4,7 @@ import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from '../../lib/firebase'
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
+import logo from '../../../public/lost (1).png'
 import { handleSignOut } from '@/lib/signout';
 import { Button } from "@/components/ui/button"
 import {
@@ -44,17 +45,20 @@ const Dashboard = () => {
 
   return (
     <div>
-      <div className='flex p-4'>
+      <div className='flex justify-between pl-6 pr-6 items-center'>
+        <div className='flex justify-center items-center  text-center'>
+          <Image height={45} width={45} alt='logo' src={logo} />
+          <h1 className='text-[22px] text-bold'>Lost and found</h1>
+        </div>
         <div className='p-4'>
           {user ? (
             <div>
-
               <Drawer>
                 <DrawerTrigger asChild>
                   {
                     user ? (
-                      <div className='h-[50px] w-[50px] rounded-[50%] cursor-pointer overflow-hidden'>
-                        <Image width={100} height={100} src={user.photoURL} alt='UserImage' />
+                      <div className='rounded-[50%] cursor-pointer overflow-hidden'>
+                        <Image width={45} height={45} src={user.photoURL} alt='UserImage' />
                       </div>
                     )
                       :
@@ -89,16 +93,11 @@ const Dashboard = () => {
               </Drawer>
             </div>
           ) : (
-            <p>Loading...</p>
+            <p>Loading</p>
           )}
         </div>
-
-
-        <div className='mx-auto w-1/2 bg-gray-200 p-4 text-center'>
-          Lost and found
-        </div>
-        <div className='p-4'>
-          Report Lost/Found
+        <div className='fixed bottom-0 right-0 p-5 z-10'>
+          <button className='bg-green-400 p-3 rounded-2xl text-white active:scale-90'>Report item</button>
         </div>
       </div>
       <div className='p-8'>
