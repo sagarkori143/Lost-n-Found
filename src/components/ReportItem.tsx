@@ -40,9 +40,7 @@ const ReportItemPopup: React.FC = () => {
 
         try {
             setloading(true)
-            const BASE_URL = process.env.NEXT_PUBLIC_API_URL;
-            const uploadUrl = `${BASE_URL}/api/items`;
-            const response = await fetch(uploadUrl, {
+            const response = await fetch("https://lost-n-found-orcin.vercel.app/api/items", {
                 method: "POST",
                 body: formData,
             });
