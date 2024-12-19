@@ -36,18 +36,6 @@ export const data = [
     score: "8.68",
   },
   {
-    id: "4",
-    name: "jujutsu_kaisen",
-    image: {
-      original:
-        "https://static.wikia.nocookie.net/jujutsu-kaisen/images/8/88/Anime_Key_Visual_2.png/revision/latest?cb=20201212034001",
-    },
-    kind: "TV",
-    episodes: 24,
-    episodes_aired: 24,
-    score: "8.78",
-  },
-  {
     id: "5",
     name: "fma_brotherhood",
     image: {
