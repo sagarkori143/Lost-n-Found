@@ -1,8 +1,9 @@
 'use client'
 import { useEffect, useState } from 'react';
-import { getAuth, onAuthStateChanged } from 'firebase/auth';
+import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from '../../lib/firebase'
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 import { handleSignOut } from '@/lib/signout';
 import { Button } from "@/components/ui/button"
 import {
@@ -53,7 +54,7 @@ const Dashboard = () => {
                   {
                     user ? (
                       <div className='h-[50px] w-[50px] rounded-[50%] cursor-pointer overflow-hidden'>
-                        <img src={user.photoURL} alt='UserImage' />
+                        <Image width={100} height={100} src={user.photoURL} alt='UserImage' />
                       </div>
                     )
                       :
@@ -67,7 +68,7 @@ const Dashboard = () => {
                     <DrawerHeader>
                       <div className='flex '>
                         <div className='align-center h-[50px] w-[50px] rounded-[50%] border-solid border-[2px] cursor-pointer overflow-hidden'>
-                          <img src={user.photoURL} alt='UserImage' />
+                          <Image width={100} height={100} src={user.photoURL} alt='UserImage' />
                         </div>
                         <div className='pl-5 mt-4'>
                           <DrawerTitle>Hi {user.displayName || user.email} 👋</DrawerTitle>

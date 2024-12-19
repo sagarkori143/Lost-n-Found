@@ -13,7 +13,7 @@ import { Label } from "@/components/ui/label"
 
 
 
-import { getAuth, onAuthStateChanged } from 'firebase/auth';
+import { onAuthStateChanged } from 'firebase/auth';
 import { useEffect, useState } from 'react';
 import { signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
 import { auth } from '../../../lib/firebase'
@@ -23,7 +23,7 @@ export default function LoginForm({
   className,
   ...props
 }: React.ComponentPropsWithoutRef<"div">) {
-  const [user, setUser] = useState<Object | null>(null);
+    const [user, setUser] = useState<Object | null>(null);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
@@ -36,6 +36,8 @@ export default function LoginForm({
       // Ensure the email is from the institute domain
       if (!email.endsWith('@iiitdmj.ac.in')) {
         setError('Please use your institute email.');
+        console.log(error)
+        console.log(user)
         return;
       }
   
@@ -44,6 +46,8 @@ export default function LoginForm({
         router.push('/dashboard'); // Redirect to dashboard if login is successful
       } catch (err) {
         setError('Failed to log in. Please check your email/password and try again.');
+        console.log(err)
+        
       }
     };
 
@@ -63,6 +67,7 @@ export default function LoginForm({
       }
     } catch (err) {
       setError('Failed to log in with Google.');
+      console.log(err)
     }
   };
 

@@ -7,6 +7,7 @@ import cloudinary from "@/lib/cloudinary";
 export async function GET() {
   try {
     const response= await connectDB();
+    console.log(response);
     const items: IItem[] = await Item.find();
     return NextResponse.json(items, { status: 200 });
   } catch (error) {

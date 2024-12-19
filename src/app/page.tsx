@@ -1,11 +1,10 @@
 'use client'; // Mark the file as a client-side component
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { getAuth, onAuthStateChanged } from 'firebase/auth';
+import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from '../lib/firebase';
 
 const HomePage = () => {
-  const [loggedIn,setUserLoggedIn]=useState(false);
   const [loading, setLoading]=useState(true);
   const router = useRouter();
 
@@ -14,9 +13,7 @@ const HomePage = () => {
       if (user) {
         router.push('/dashboard'); // Redirect to dashboard if logged in
       } else {
-        setUserLoggedIn(false);
         setLoading(false);
-        //router.push('/test')
         router.push('/login'); // Redirect to sign-in if not logged in
       }
     });
