@@ -27,8 +27,8 @@ const ReportItemPopup: React.FC = () => {
   const [whatsapp, setWhatsapp] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [username, setusername] = useState<string>("");
-  const [rollNo, setRollNumber]= useState<string>("");
-  const [photoURL, setPhotoURL]= useState<string>("");
+  const [rollNo, setRollNumber] = useState<string>("");
+  const [photoURL, setPhotoURL] = useState<string>("");
   const [collegeEmail, setCollegeEmail] = useState<string>("");
   const [images, setImages] = useState<File[]>([]);
   const [loading, setLoading] = useState(false);
@@ -51,11 +51,11 @@ const ReportItemPopup: React.FC = () => {
     formData.append("type", type);
     formData.append("phone", phone);
     formData.append("whatsapp", whatsapp);
-    formData.append("email", email);  
-    formData.append("username",username);
-    formData.append("rollNo",rollNo);
-    formData.append("collegeEmail",collegeEmail);
-    formData.append("photoURL",photoURL);
+    formData.append("email", email);
+    formData.append("username", username);
+    formData.append("rollNo", rollNo);
+    formData.append("collegeEmail", collegeEmail);
+    formData.append("photoURL", photoURL);
     images.forEach((image) => formData.append("images", image));
     console.log(formData.get("type"));
 
@@ -69,7 +69,7 @@ const ReportItemPopup: React.FC = () => {
       const result = await response.json().catch(() => {
         setLoading(false);
         throw new Error("Server returned non-JSON response");
-        
+
       });
 
       if (response.ok) {
@@ -102,11 +102,11 @@ const ReportItemPopup: React.FC = () => {
       if (!user) {
         router.push('/login'); // Redirect to sign-in if not logged in
       } else {
-        if(user.displayName)setusername(user.displayName);
-        if(user.email)setCollegeEmail(user.email);
-        if(user.photoURL)setPhotoURL(user.photoURL);
+        if (user.displayName) setusername(user.displayName);
+        if (user.email) setCollegeEmail(user.email);
+        if (user.photoURL) setPhotoURL(user.photoURL);
         const roll = user.email?.split('@')[0];
-        if(roll)setRollNumber(roll.toUpperCase());
+        if (roll) setRollNumber(roll.toUpperCase());
       }
     });
 
@@ -147,15 +147,14 @@ const ReportItemPopup: React.FC = () => {
           />
         </div>
         <div className="grid gap-2 text-gray-400 ">
-                <label htmlFor="status-select">Type </label>
-              <select 
-              value={type}
-              onChange={(e)=>setType(e.target.value)}
-              id="status-select" className="bg-black text-white p-2 rounded border border-white" >
-                <option value="" disabled>Select an option</option>
-                <option value="lost">Lost</option>
-                <option value="found">Found</option>
-              </select>
+          <label htmlFor="status-select">Type </label>
+          <select
+            value={type}
+            onChange={(e) => setType(e.target.value)}
+            id="status-select" className="bg-black text-white p-2 rounded border border-white" >
+            <option value="Lost">Lost</option>
+            <option value="Found">Found</option>
+          </select>
         </div>
         <div className="grid gap-2">
           <Label htmlFor="phone">Phone</Label>

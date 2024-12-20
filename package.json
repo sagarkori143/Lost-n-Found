@@ -25,6 +25,7 @@
     "next": "^15.1.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "styled-components": "^6.1.13",
     "tailwind-merge": "^2.5.5",
     "tailwindcss-animate": "^1.0.7",
     "vaul": "^1.1.2"
