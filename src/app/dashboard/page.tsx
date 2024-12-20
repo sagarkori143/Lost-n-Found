@@ -65,7 +65,7 @@ const Dashboard = () => {
     });
     const fetchData = async () => {
       try {
-        const response = await fetch("http://localhost:3000/api/items", {
+        const response = await fetch("https://lost-n-found-orcin.vercel.app/api/items", {
           method: "GET",
          
         });
