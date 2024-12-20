@@ -32,8 +32,9 @@ export interface ItemProp {
   whatsapp: string;
   __v: number;
   _id: string;
-
+  
 }
+
 interface Prop {
   item: ItemProp;
   index: number;
@@ -112,11 +113,11 @@ function ItemCard({ item,index }: Prop) {
         </p>
       </div>
     </div>
-    <div className="flex gap-4 items-center text-white pb-4">
+    <div className="text-white text-sm line-clamp-3">
       {item.description}
-      {/* Add more details here if needed */}
+      
     </div>
-    <div className="absolute bottom-0 left-0 right-0  px-4 py-2">
+    <div className="mt-auto">
       
       <p className="text-gray-300 text-sm">Reported by <span className="font-bold">{item.username} </span>{` ${time}`}</p>
     </div>
@@ -125,46 +126,8 @@ function ItemCard({ item,index }: Prop) {
     
   </div>
 </MotionDiv>
-    // <MotionDiv
-    //  variants={variants}
-    //  initial='hidden'
-    //  animate='visible'
-    //  transition={{
-    //   delay:index*0.25,
-    //   ease:'easeInOut',
-    //   duration:0.5
-    //  }}
-    //  viewport={{amount:0}}
-    //  className="max-w-md rounded relative w-full">
-    //   <div className="relative w-full h-[37vh]">
-    //     <Image
-    //       src={item.imageUrls[0]}
-    //       alt={item.title}
-    //       fill
-    //       className={`${colorVariants[color]}`}
-    //     />
-    //   </div>
-    //   <div className="py-4 flex flex-col gap-3">
-    //     <div className="flex justify-between items-center gap-1">
-    //       <h2 className="font-bold text-white text-xl line-clamp-1 w-full">
-    //         {item.title}
-    //       </h2>
-    //       <div className="py-1 px-2 bg-[#161921] rounded-sm">
-    //         <p className="text-white text-sm font-bold capitalize">
-              
-    //           {item.type}
-    //         </p>
-    //       </div>
-    //     </div>
-    //     <div className="flex gap-4 items-center">
-          
-          
-    //     </div>
-    //   </div>
-    // </MotionDiv>
+
   );
 }
-
-
 
 export default ItemCard;

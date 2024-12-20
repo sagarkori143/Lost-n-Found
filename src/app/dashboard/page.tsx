@@ -68,8 +68,8 @@ const Dashboard = () => {
     const fetchData = async () => {
       try {
         // Use the local host one while working on local host
-        const response = await fetch("https://lost-n-found-orcin.vercel.app/api/items", {
-        //const response = await fetch("http://localhost:3000/api/items", {  
+        //const response = await fetch("https://lost-n-found-orcin.vercel.app/api/items", {
+        const response = await fetch("http://localhost:3000/api/items", {  
           method: "GET",
         });
         if (!response.ok) {
@@ -161,7 +161,7 @@ const Dashboard = () => {
             </div>
           </div>
 
-          <div className='flex w-full flex-col place-items-center items-center justify-center pl-[15px] sm:pl-[50px] lg:pl-[110px] '>
+          <div className='flex w-full flex-col place-items-center items-center justify-center pl-[15px] pb-2 sm:pl-[50px] lg:pl-[110px] '>
             <Items data={data} />
           </div>
 
