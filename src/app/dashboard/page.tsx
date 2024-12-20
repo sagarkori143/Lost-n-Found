@@ -67,7 +67,9 @@ const Dashboard = () => {
 
     const fetchData = async () => {
       try {
+        // Use the local host one while working on local host
         const response = await fetch("https://lost-n-found-orcin.vercel.app/api/items", {
+        //const response = await fetch("http://localhost:3000/api/items", {  
           method: "GET",
         });
         if (!response.ok) {
@@ -93,7 +95,7 @@ const Dashboard = () => {
 
   return (
     <div className="h-full min-h-[100vh] w-full bg-fixed bg-black bg-grid-white/[0.2] relative flex items-center justify-center">
-      <div className="absolute pointer-events-none inset-0 flex items-center justify-center bg-black  [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)]"></div>
+      <div className="absolute pointer-events-none inset-0 flex items-center justify-center bg-black  [mask-image:radial-gradient(ellipse_at_center,transparent_90%,black)]"></div>
       {loading ?
         <div className=' h-[100vh] flex w-full justify-center items-center text-white'>
           <Loader />
@@ -158,7 +160,8 @@ const Dashboard = () => {
               <button onClick={togglePopup} className='bg-green-400 p-3 rounded-2xl text-white active:scale-90'>Report item</button>
             </div>
           </div>
-          <div className='p-8'>
+
+          <div className='flex w-full flex-col place-items-center items-center justify-center pl-[15px] sm:pl-[50px] lg:pl-[110px] '>
             <Items data={data} />
           </div>
 
