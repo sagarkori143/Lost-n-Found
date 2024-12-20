@@ -63,7 +63,7 @@ function ItemCard({ item,index }: Prop) {
       <div className="relative w-full h-[37vh]">
         <Image
           src={item.imageUrls[0]}
-          alt={item.title}
+          alt={item.title || ""}
           fill
           className={`rounded-xl  border-2 border-${color}-600`}
         />

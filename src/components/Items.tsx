@@ -38,17 +38,3 @@ export const Items: React.FC<{ data: DataType[] | null }> = ({ data }) => {
     </div>
   );
 };
-//   function Items(data:DataType[]) {
-      
-//   return (
-//     <div>
-//     <section className="grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-10">
-//        {/* {data.map((item:ItemProp,index)=>(
-//         <ItemCard key={item.id} item={item} index={index}/>
-//        ))} */}
-//      </section>
-//    </div>
-//   )
-// }
-
-// export default Items

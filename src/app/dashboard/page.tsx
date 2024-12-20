@@ -55,7 +55,7 @@ const Dashboard = () => {
 
     const unsubscribe = onAuthStateChanged(auth, (user) =>{
       if (!user) {
-        router.push('/login'); // Redirect to sign-in if not logged in
+        router.push('/'); // Redirect to sign-in if not logged in
       } else {
         setUser(user);
         console.log("Current user:", user);
@@ -63,32 +63,24 @@ const Dashboard = () => {
         if (roll) setRollNumber(roll.toUpperCase());
       }
     });
+
     const fetchData = async () => {
       try {
         const response = await fetch("https://lost-n-found-orcin.vercel.app/api/items", {
           method: "GET",
-         
         });
         if (!response.ok) {
           throw new Error(`Error: ${response.status}`);
         }
         const result: DataType[] = await response.json(); // Ensure the correct type
-        setData(result);
-        
-        
-        
+        setData(result); 
       } catch (err) {
         setError(err instanceof Error ? err.message : 'Unknown error');
       } finally {
         setLoading(false);
       }
     };
-
-    // Call the asynchronous function
     fetchData();
-    
-    
-
     return () => unsubscribe();
   }, []);
   
@@ -99,14 +91,14 @@ const Dashboard = () => {
     return <p>Loading...</p>;
   }
   return (
-    <div className="h-full w-full bg-black bg-grid-white/[0.2] relative flex items-center justify-center">
+    <div className="h-full w-full bg-fixed bg-black bg-grid-white/[0.2] relative flex items-center justify-center">
       <div className="absolute pointer-events-none inset-0 flex items-center justify-center bg-black  [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)]"></div>
-      <div className=' flex-col items-center'>
-        <div className='flex justify-between pl-6 pr-6 items-center'>
+      <div className='w-full'>
+        <div className='flex justify-between pl-1 lg:pl-2 lg:pr-4 items-center'>
           <Link href="/">
           <div className='flex justify-center items-center  text-center z-10'>
-            <Image height={45} width={45} alt='logo' src={logo} className='z-10' />
-            <h1 className='text-[22px] text-bold text-white'>Lost and found</h1>
+            <Image height={40} width={40} alt='logo' src={logo} className='z-10' />
+            <h1 className='lg:text-[22px] text-[18px] text-bold text-white z-10'>Lost and found</h1>
           </div>
           </Link>
           <div className='p-4'>
