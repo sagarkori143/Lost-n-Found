@@ -32,9 +32,8 @@ export interface ItemProp {
   whatsapp: string;
   __v: number;
   _id: string;
-  
-}
 
+}
 interface Prop {
   item: ItemProp;
   index: number;
@@ -165,5 +164,7 @@ function ItemCard({ item,index }: Prop) {
     // </MotionDiv>
   );
 }
+
+
 
 export default ItemCard;

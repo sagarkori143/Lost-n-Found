@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import { Loader2 } from "lucide-react";
 
 // Imports for login functions and states management
 import { useState } from 'react';
@@ -28,6 +29,7 @@ export function LoginForm({
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const router = useRouter();
+  const [loading, setLoading] = useState(false);
 
   // Email login handler
   const handleEmailLogin = async (e: React.FormEvent) => {
@@ -51,18 +53,21 @@ export function LoginForm({
   const handleGoogleLogin = async () => {
     const provider = new GoogleAuthProvider();
     try {
+      setLoading(true);
       const result = await signInWithPopup(auth, provider);
       const user = result.user;
-      console.log("Login successful. the user is:",user)
+      console.log("Login successful. the user is:", user)
       // Ensure the email is from the institute domain
       if (user.email && !user.email.endsWith('@iiitdmj.ac.in')) {
+        setLoading(false);
         await auth.signOut();
-        setError('Please use your institute email.');
+        alert('Please use your institute email.');
         console.log("Please use institute email id")
       } else {
         router.push('/dashboard'); // Redirect to dashboard if login is successful
       }
     } catch (err) {
+      setLoading(false);
       setError('Failed to log in with Google.');
     }
   };
@@ -123,23 +128,22 @@ export function LoginForm({
                     onChange={(e) => setPassword(e.target.value)}
                     required />
                 </div>
-                <Button type="submit" className="w-full">
-                  Login
-                </Button>
-              </div>
-              <div className="text-center text-sm">
-                Don&apos;t have an account?{" "}
-                <a href="#" className="underline underline-offset-4">
-                  Sign up
-                </a>
+                {!loading ?
+                  <Button type="submit" className="w-full">
+                    Login
+                  </Button>
+                  :
+                  <Button disabled>
+                    <Loader2 className="animate-spin" />
+                    Signing in
+                  </Button>}
               </div>
             </div>
           </form>
         </CardContent>
       </Card>
       <div className="text-balance text-center text-xs text-muted-foreground [&_a]:underline [&_a]:underline-offset-4 [&_a]:hover:text-primary  ">
-        By clicking continue, you agree to our <a href="#">Terms of Service</a>{" "}
-        and <a href="#">Privacy Policy</a>.
+        No Signup needed. Just login with your institute mail ID.
       </div>
     </div>
   )
