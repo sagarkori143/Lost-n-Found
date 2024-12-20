@@ -36,37 +36,26 @@ const HomePage = () => {
 
   const words1 = [
     {
-      text: "Let's",
+      text: "Find",
     },
     {
-      text: "find",
+      text: "What",
     },
     {
-      text: "your",
+      text: "You've",
     },
     {
-      text: "Lost",
+      text: "Lost,",
       className: "text-blue-500 dark:text-blue-500",
     }, {
-      text: "belongings",
+      text: "Return",
+    }, 
+    {
+      text: "What",
     }, {
-      text: "And",
-      className: "text-blue-500 dark:text-blue-500",
+      text: "You've",
     },
-    {
-      text: "convey",
-    }, {
-      text: "the",
-    },
-    {
-      text: "ones",
-    },
-    {
-      text: "you",
-    },
-    {
-      text: "have",
-    },
+   
     {
       text: "Found.",
       className: "text-blue-500 dark:text-blue-500",
