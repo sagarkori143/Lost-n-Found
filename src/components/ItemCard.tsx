@@ -48,6 +48,7 @@ const variants={
 
 function ItemCard({ item,index }: Prop) {
   const [time, setTime] = useState("");
+  const [isModalOpen, setIsModalOpen] = useState(false);
   useEffect(() => {
     // Time calculator:
     const calculateTimeAgo = (dateString: string): string => {
@@ -76,6 +77,7 @@ function ItemCard({ item,index }: Prop) {
   }
   const color= item.type=="Lost"?"red":"blue";
   return (
+    <>
     <MotionDiv
   variants={variants}
   initial="hidden"
@@ -114,9 +116,14 @@ function ItemCard({ item,index }: Prop) {
       </div>
     </div>
     <div className="text-white text-sm line-clamp-3">
-      {item.description}
-      
-    </div>
+            {item.description}
+          </div>
+          <button
+            onClick={() => setIsModalOpen(true)}
+            className="text-blue-400 underline text-sm"
+          >
+            View More
+          </button>
     <div className="mt-auto">
       
       <p className="text-gray-300 text-sm">Reported by <span className="font-bold">{item.username} </span>{` ${time}`}</p>
@@ -126,6 +133,43 @@ function ItemCard({ item,index }: Prop) {
     
   </div>
 </MotionDiv>
+{isModalOpen && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
+          <div className="bg-white rounded-lg p-6 max-w-lg w-full">
+            <h2 className="text-lg font-bold mb-4">{item.title}</h2>
+            <p className="text-sm text-gray-700">
+              <strong>Description:</strong> {item.description}
+            </p>
+            <div className="mt-4">
+              <p>
+                <strong>Contact:</strong>{" "}
+                <span className="text-blue-500">{item.phone}</span>
+              </p>
+              <p>
+                <strong>Email:</strong>{" "}
+                <span className="text-blue-500">{item.email}</span>
+              </p>
+              <p>
+                <strong>WhatsApp:</strong>{" "}
+                <span className="text-blue-500">{item.whatsapp}</span>
+              </p>
+              <p>
+                <strong>Date {item.type}:</strong>{" "}
+                <span className="text-gray-700">{item.dateLostFound}</span>
+              </p>
+            </div>
+            <div className="mt-4 flex justify-end gap-2">
+              <button
+                onClick={() => setIsModalOpen(false)}
+                className="px-4 py-2 bg-red-500 text-white rounded"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+</>
 
   );
 }
