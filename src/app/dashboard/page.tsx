@@ -103,7 +103,7 @@ const Dashboard = () => {
 
         :
         <div className='w-full flex flex-col items-center'>
-          <div className="bg-[rgba(213,203,203,0.21)] flex justify-center rounded-full w-[85%] lg:w-[60%] h-[40px] lg:h-[65px] pl-3 sticky top-4 z-10 shadow-lg shadow-[rgba(0,0,0,0.1)] backdrop-blur-[7.5px] border border-[rgba(213,203,203,0.74)]">
+          <div className="bg-[rgba(213,203,203,0.21)] flex justify-center rounded-full w-[85%] lg:w-[60%] h-[45px] lg:h-[65px] pl-3 sticky top-4 z-10 shadow-lg shadow-[rgba(0,0,0,0.1)] backdrop-blur-[7.5px] border border-[rgba(213,203,203,0.74)]">
             <div className='flex justify-between w-[100%] lg:pl-2 lg:pr-4 items-center'>
               <Link href="/" >
                 <div className='flex justify-center items-center text-center z-10 '>
@@ -139,16 +139,19 @@ const Dashboard = () => {
                       <DrawerContent>
                         <div className="mx-auto w-full max-w-sm">
                           <DrawerHeader>
-                            <div className='flex z-10'>
-                              <div className='align-center h-[50px] w-[50px] rounded-[50%] border-solid border-[2px] cursor-pointer overflow-hidden'>
-                                <Image width={100} height={100} src={user.photoURL} alt='UserImage' className='z-10' />
-                              </div>
-                              <div className='pl-5 mt-4'>
+                            <div className='flex items-center z-10'>
+                              
+                              <Image width={100} height={100} src={user.photoURL} alt='UserImage' className='z-10 w-[30px] h-[30px] lg:w-[50px] lg:h-[50px] rounded-[50%]' />
+                              
+                              <div className='pl-5'>
                                 <DrawerTitle>Hi {user.displayName || user.email} 👋</DrawerTitle>
                               </div>
                             </div>
-                            <div><h3 className='pl-4 text-left'>{rollNumber}</h3></div>
-                            <DrawerDescription>Indian institute of information technology, Jabalpur</DrawerDescription>
+                            
+                            <DrawerDescription>
+                            <p className='text-left lg:text-[18px] '>{rollNumber}</p>
+                            <p className='text-left lg:text-[17px] '>Indian institute of information technology, Jabalpur</p>
+                            </DrawerDescription>
                           </DrawerHeader>
 
                           <DrawerFooter>

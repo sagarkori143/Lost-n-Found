@@ -89,15 +89,11 @@ function ItemCard({ item, index }: Prop) {
             fill
             className="rounded-t-xl  "
           />
-          {/* Title and Time Overlay */}
-
         </div>
 
-        {/* Details Section */}
         <div className="py-4 px-4 flex flex-col gap-3" onClick={() => setIsModalOpen(true)}>
-          {/* Title and Type */}
           <div className="flex justify-between items-center gap-2">
-            <h2 className="font-bold text-white text-xl line-clamp-1 w-full">
+            <h2 className="font-bold text-white text-lg lg:text-xl line-clamp-1 w-full">
               {item.title}
             </h2>
             <div className={`py-1 px-2 ${colorVariants[color]} rounded-sm`}>
@@ -109,9 +105,8 @@ function ItemCard({ item, index }: Prop) {
           <div className="text-white text-sm line-clamp-3">
             {item.description}
           </div>
-          <div className="mt-auto align-baseline mb-[-10px]">
-
-            <p className="text-gray-300 text-sm align-baseline">Reported by <span className="font-bold">{item.username} </span>{` ${time}`}</p>
+          <div className="">
+            <p className="text-gray-300 text-sm align-baseline">Reported by <span className="font-bold">{item.username}</span><span className="text-[12px] text-gray-500">{` ${time}`}</span> </p>
           </div>
 
           {/* Optional Additional Details */}
@@ -120,9 +115,9 @@ function ItemCard({ item, index }: Prop) {
       </MotionDiv>
       {isModalOpen && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50" onClick={() => setIsModalOpen(false)}>
-          <div className="bg-white rounded-xl text-sm lg:text-lg md:text-lg m-4 p-4 lg:p-6 max-w-lg w-full" onClick={(e) => e.stopPropagation()}>
-            <h2 className="text-md lg:text-lg font-bold mb-4">{item.title}</h2>
-            <p className="text-sm text-gray-700">
+          <div className="bg-[rgba(213,203,203,0.08)] shadow-lg shadow-[rgba(0,0,0,0.1)] backdrop-blur-[10px] border border-[rgba(213,203,203,0.74)] rounded-2xl text-sm lg:text-lg md:text-lg m-4 p-4 lg:p-6 max-w-lg w-full" onClick={(e) => e.stopPropagation()}>
+            <h2 className="text-md text-white lg:text-lg font-bold mb-4">{item.title}</h2>
+            <p className="text-sm text-white">
               <strong>Description:</strong> {item.description}
             </p>
             <div className="flex flex-col gap-2 mt-4">
@@ -170,7 +165,7 @@ function ItemCard({ item, index }: Prop) {
               )}
 
               <p className="flex items-baseline mt-2">
-                <span className="text-gray-600 text-sm">
+                <span className="text-white text-sm">
                   {item.type} on:{" "}
                   {item.dateLostFound.split("T")[0].split("-").reverse().join("-")}
                 </span>

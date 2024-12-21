@@ -55,7 +55,7 @@ export const Items: React.FC<{ data: DataType[] | null }> = ({ data }) => {
       <div className="flex justify-between mb-4 pr-4 lg:pr-[75px] lg:pl-2">
         {/* Filter Options */}
         <select
-          className="h-[30px] border rounded bg-black text-white text-[14px] lg:text-[20px]"
+          className="h-[30px] border rounded bg-black text-white border-gray-500 p-1 text-[14px] lg:text-[17px]"
           value={filter}
           onChange={(e) => setFilter(e.target.value)}
         >
@@ -66,7 +66,7 @@ export const Items: React.FC<{ data: DataType[] | null }> = ({ data }) => {
 
         {/* Sort Options */}
         <select
-          className="h-[30px] border rounded bg-black text-white text-[14px] lg:text-[20px]"
+          className="h-[30px] border rounded bg-black text-white border-gray-500 p-1 text-[14px] lg:text-[17px]"
           value={sort}
           onChange={(e) => setSort(e.target.value)}
         >
