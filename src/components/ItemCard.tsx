@@ -126,45 +126,57 @@ function ItemCard({ item, index }: Prop) {
               <strong>Description:</strong> {item.description}
             </p>
             <div className="flex flex-col gap-2 mt-4">
-              <div>
-                {
-                  item.phone.length >= 10 ?
-                    (<p className="flex gap-2">
-                      <Image src={call} height={25} width={25} alt="" />
-                      <span className="text-blue-500 font-bold">{item.phone}</span>
-                    </p>
-                    ) : ("")
-                }
-              </div>
-              <div>
-                {
-                  item.email.length > 0 ?
-                    (
-                      <p className="flex gap-2">
-                        <Image src={mail} height={25} width={25} alt="" />
-                        <span className="text-blue-500 font-bold">{item.email}</span>
-                      </p>
-                    ) : ("")
-                }
-              </div>
-              <div>
-                {
-                  item.whatsapp.length >= 10 ?
-                    (
-                      <p className="flex gap-2">
-                        <Image src={whatsapp} height={25} width={25} alt="" />
-                        <span className="text-blue-500 font-bold">{item.whatsapp}</span>
-                      </p>
-                    ) :
-                    ("")
-                }
-              </div>
+              
+              {item.phone.length >= 10 && (
+                <p className="flex gap-2 items-center">
+                  <Image src={call} height={25} width={25} alt="Call" />
+                  <a
+                    href={`tel:${item.phone}`}
+                    className="text-blue-500 font-bold"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {item.phone}
+                  </a>
+                </p>
+              )}
 
+              {item.email.length > 0 && (
+                <p className="flex gap-2 items-center">
+                  <Image src={mail} height={25} width={25} alt="Mail" />
+                  <a
+                    href={`mailto:${item.email}`}
+                    className="text-blue-500 font-bold"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {item.email}
+                  </a>
+                </p>
+              )}
+
+              {item.whatsapp && (
+                <p className="flex gap-2 items-center">
+                  <Image src={whatsapp} height={25} width={25} alt="WhatsApp" />
+                  <a
+                    href={`https://wa.me/91${item.whatsapp}`}
+                    className="text-blue-500 font-bold"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                  {item.whatsapp}
+                  </a>
+                </p>
+              )}
 
               <p className="flex items-baseline mt-2">
-                <span className="text-gray-600 text-sm">{item.type} on: {item.dateLostFound.split("T")[0].split("-").reverse().join("-")}</span>
+                <span className="text-gray-600 text-sm">
+                  {item.type} on:{" "}
+                  {item.dateLostFound.split("T")[0].split("-").reverse().join("-")}
+                </span>
               </p>
             </div>
+
             <div className="mt-4 flex justify-end gap-2">
               <button
                 onClick={() => setIsModalOpen(false)}
