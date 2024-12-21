@@ -1,20 +1,11 @@
 "use client";
 import Image from "next/image";
-import {MotionDiv} from './MotionDiv'
-import { useEffect,useState } from "react";
-// export interface ItemProp {
-//   id: string;
-//   name: string;
-//   image: {
-//     original: string;
-//   };
-//   kind: string;
- 
-//     episodes: number;
-//     episodes_aired: number;
-//     score: string;
-  
-// }
+import { MotionDiv } from './MotionDiv'
+import { useEffect, useState } from "react";
+import mail from './../../public/gmail.png'
+import whatsapp from './../../public/whatsapp.png'
+import call from './../../public/telephone.png'
+
 export interface ItemProp {
   collegeEmail: string;
   dateAdded: string;
@@ -32,7 +23,7 @@ export interface ItemProp {
   whatsapp: string;
   __v: number;
   _id: string;
-  
+
 }
 
 interface Prop {
@@ -40,13 +31,13 @@ interface Prop {
   index: number;
 }
 
-const variants={
-  hidden:{opacity:0},
-  visible:{opacity:1}
+const variants = {
+  hidden: { opacity: 0 },
+  visible: { opacity: 1 }
 
 }
 
-function ItemCard({ item,index }: Prop) {
+function ItemCard({ item, index }: Prop) {
   const [time, setTime] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
   useEffect(() => {
@@ -71,91 +62,107 @@ function ItemCard({ item,index }: Prop) {
     setTime(calculateTimeAgo(item.dateAdded));
   }, [])
   const colorVariants = {
-    blue: 'bg-blue-500',
+    blue: 'bg-green-500',
     red: 'bg-red-500',
-    
+
   }
-  const color= item.type=="Lost"?"red":"blue";
+  const color = item.type == "Lost" ? "red" : "blue";
   return (
     <>
-    <MotionDiv
-  variants={variants}
-  initial="hidden"
-  animate="visible"
-  transition={{
-    delay: index * 0.25,
-    ease: 'easeInOut',
-    duration: 0.5,
-  }}
-  viewport={{ amount: 0 }}
-  className="max-w-md rounded-lg relative w-full bg-[#1A1D29] shadow-lg hover:shadow-xl transition-shadow duration-300"
->
-  {/* Image Section */}
-  <div className="relative w-full h-[37vh] overflow-hidden rounded-t-lg">
-    <Image
-      src={item.imageUrls[0]}
-      alt={item.title}
-      fill
-      className="rounded-t-xl  "
-    />
-    {/* Title and Time Overlay */}
-    
-  </div>
+      <MotionDiv
+        variants={variants}
+        initial="hidden"
+        animate="visible"
+        transition={{
+          delay: index * 0.25,
+          ease: 'easeInOut',
+          duration: 0.5,
+        }}
+        viewport={{ amount: 0 }}
+        className="max-w-md rounded-lg relative w-full bg-[#1A1D29] shadow-lg hover:shadow-xl hover:scale-105 transition-transform duration-300 ease-in-out"
+      >
+        {/* Image Section */}
+        <div className="relative w-full h-[30vh] overflow-hidden rounded-t-lg" onClick={() => setIsModalOpen(true)}>
+          <Image
+            src={item.imageUrls[0]}
+            alt={item.title}
+            fill
+            className="rounded-t-xl  "
+          />
+          {/* Title and Time Overlay */}
 
-  {/* Details Section */}
-  <div className="py-4 px-4 flex flex-col gap-3">
-    {/* Title and Type */}
-    <div className="flex justify-between items-center gap-2">
-      <h2 className="font-bold text-white text-xl line-clamp-1 w-full">
-        {item.title}
-      </h2>
-      <div className={`py-1 px-2 ${colorVariants[color]} rounded-sm`}>
-        <p className="text-white text-sm font-bold capitalize">
-          {item.type}
-        </p>
-      </div>
-    </div>
-    <div className="text-white text-sm line-clamp-3">
+        </div>
+
+        {/* Details Section */}
+        <div className="py-4 px-4 flex flex-col gap-3">
+          {/* Title and Type */}
+          <div className="flex justify-between items-center gap-2">
+            <h2 className="font-bold text-white text-xl line-clamp-1 w-full">
+              {item.title}
+            </h2>
+            <div className={`py-1 px-2 ${colorVariants[color]} rounded-sm`}>
+              <p className="text-white text-sm font-bold capitalize">
+                {item.type}
+              </p>
+            </div>
+          </div>
+          <div className="text-white text-sm line-clamp-3">
             {item.description}
           </div>
-          <button
-            onClick={() => setIsModalOpen(true)}
-            className="text-blue-400 underline text-sm"
-          >
-            View More
-          </button>
-    <div className="mt-auto">
-      
-      <p className="text-gray-300 text-sm">Reported by <span className="font-bold">{item.username} </span>{` ${time}`}</p>
-    </div>
+          <div className="mt-auto align-baseline mb-[-10px]">
 
-    {/* Optional Additional Details */}
-    
-  </div>
-</MotionDiv>
-{isModalOpen && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
-          <div className="bg-white rounded-lg p-6 max-w-lg w-full">
-            <h2 className="text-lg font-bold mb-4">{item.title}</h2>
+            <p className="text-gray-300 text-sm align-baseline">Reported by <span className="font-bold">{item.username} </span>{` ${time}`}</p>
+          </div>
+
+          {/* Optional Additional Details */}
+
+        </div>
+      </MotionDiv>
+      {isModalOpen && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50" onClick={() => setIsModalOpen(false)}>
+          <div className="bg-white rounded-xl text-sm lg:text-lg md:text-lg m-4 p-4 lg:p-6 max-w-lg w-full" onClick={(e) => e.stopPropagation()}>
+            <h2 className="text-md lg:text-lg font-bold mb-4">{item.title}</h2>
             <p className="text-sm text-gray-700">
               <strong>Description:</strong> {item.description}
             </p>
-            <div className="mt-4">
-              <p>
-                <strong>Contact:</strong>{" "}
-                <span className="text-blue-500">{item.phone}</span>
-              </p>
-              <p>
-                <strong>Email:</strong>{" "}
-                <span className="text-blue-500">{item.email}</span>
-              </p>
-              <p>
-                <strong>WhatsApp:</strong>{" "}
-                <span className="text-blue-500">{item.whatsapp}</span>
-              </p>
-              <p>
-                <strong>Date {item.type}:</strong>{" "}
-                <span className="text-gray-700">{item.dateLostFound}</span>
+            <div className="flex flex-col gap-2 mt-4">
+              <div>
+                {
+                  item.phone.length >= 10 ?
+                    (<p className="flex gap-2">
+                      <Image src={call} height={25} width={25} alt="" />
+                      <span className="text-blue-500 font-bold">{item.phone}</span>
+                    </p>
+                    ) : ("")
+                }
+              </div>
+              <div>
+                {
+                  item.email.length > 0 ?
+                    (
+                      <p className="flex gap-2">
+                        <Image src={mail} height={25} width={25} alt="" />
+                        <span className="text-blue-500 font-bold">{item.email}</span>
+                      </p>
+                    ) : ("")
+                }
+              </div>
+              <div>
+                {
+                  item.whatsapp.length >= 10 ?
+                    (
+                      <p className="flex gap-2">
+                        <Image src={whatsapp} height={25} width={25} alt="" />
+                        <span className="text-blue-500 font-bold">{item.whatsapp}</span>
+                      </p>
+                    ) :
+                    ("")
+                }
+              </div>
+
+
+              <p className="flex items-baseline mt-2">
+                <span className="text-gray-600 text-sm">{item.type} on: {item.dateLostFound.split("T")[0].split("-").reverse().join("-")}</span>
               </p>
             </div>
             <div className="mt-4 flex justify-end gap-2">
@@ -169,7 +176,7 @@ function ItemCard({ item,index }: Prop) {
           </div>
         </div>
       )}
-</>
+    </>
 
   );
 }
