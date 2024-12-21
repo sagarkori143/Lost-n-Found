@@ -21,7 +21,8 @@ import {
   DrawerTrigger,
 } from "@/components/ui/drawer"
 import { Items } from '@/components/Items';
-
+import add from './../../../public/add.png'
+import add2 from './../../../public/icons8-plus-100.png';
 
 
 const Dashboard = () => {
@@ -69,7 +70,7 @@ const Dashboard = () => {
       try {
         // Use the local host one while working on local host
         const response = await fetch("https://lost-n-found-orcin.vercel.app/api/items", {
-        //const response = await fetch("http://localhost:3000/api/items", {  
+        //const response = await fetch("http://localhost:3000/api/items", {
           method: "GET",
         });
         if (!response.ok) {
@@ -94,74 +95,91 @@ const Dashboard = () => {
   };
 
   return (
-    <div className="h-full min-h-[100vh] w-full bg-fixed bg-black bg-grid-white/[0.2] relative flex items-center justify-center">
-      <div className="absolute pointer-events-none inset-0 flex items-center justify-center bg-black  [mask-image:radial-gradient(ellipse_at_center,transparent_90%,black)]"></div>
+    <div className=" h-full min-h-[100vh] w-full bg-fixed bg-black bg-grid-white/[0.2] relative flex flex-col pt-4">
       {loading ?
         <div className=' h-[100vh] flex w-full justify-center items-center text-white'>
           <Loader />
         </div>
 
         :
-        <div className='w-full'>
-          <div className='flex justify-between pl-1 lg:pl-2 lg:pr-4 items-center'>
-            <Link href="/">
-              <div className='flex justify-center items-center  text-center z-10'>
-                <Image height={40} width={40} alt='logo' src={logo} className='z-10' />
-                <h1 className='lg:text-[22px] text-[18px] text-bold text-white z-10'>Lost and found</h1>
-              </div>
-            </Link>
-            <div className='p-4'>
-              {user ? (
-                <div>
-                  <Drawer>
-                    <DrawerTrigger asChild>
-                      {
-                        user ? (
-                          <div className='relative rounded-[50%] cursor-pointer overflow-hidden '>
-                            <Image width={45} height={45} src={user.photoURL} alt='UserImage' />
-                          </div>
-                        )
-                          :
-                          (
-                            <Button>User</Button>
-                          )
-                      }
-                    </DrawerTrigger>
-                    <DrawerContent>
-                      <div className="mx-auto w-full max-w-sm">
-                        <DrawerHeader>
-                          <div className='flex z-10'>
-                            <div className='align-center h-[50px] w-[50px] rounded-[50%] border-solid border-[2px] cursor-pointer overflow-hidden'>
-                              <Image width={100} height={100} src={user.photoURL} alt='UserImage' className='z-10' />
-                            </div>
-                            <div className='pl-5 mt-4'>
-                              <DrawerTitle>Hi {user.displayName || user.email} 👋</DrawerTitle>
-                            </div>
-                          </div>
-                          <div><h3 className='pl-4 text-left'>{rollNumber}</h3></div>
-                          <DrawerDescription>Indian institute of information technology, Jabalpur</DrawerDescription>
-                        </DrawerHeader>
-
-                        <DrawerFooter>
-                          <Button className='bg-red-700 hover:bg-red-800' onClick={handleSignOut}>Sign Out</Button>
-                          <DrawerClose asChild>
-                            <Button variant="outline">Close</Button>
-                          </DrawerClose>
-                        </DrawerFooter>
-                      </div>
-                    </DrawerContent>
-                  </Drawer>
+        <div className='w-full flex flex-col items-center'>
+          <div className="bg-[rgba(213,203,203,0.21)] flex justify-center rounded-full w-[85%] lg:w-[60%] h-[40px] lg:h-[65px] pl-3 sticky top-4 z-10 shadow-lg shadow-[rgba(0,0,0,0.1)] backdrop-blur-[7.5px] border border-[rgba(213,203,203,0.74)]">
+            <div className='flex justify-between w-[100%] lg:pl-2 lg:pr-4 items-center'>
+              <Link href="/" >
+                <div className='flex justify-center items-center text-center z-10 '>
+                  <Image
+                    height={40}
+                    width={40}
+                    alt="logo"
+                    src={logo}
+                    className="z-10 w-[23px] h-[23px] sm:w-8 sm:h-8 md:w-10 md:h-10"
+                  />
+                  <h1 className='ml-1 text-[15px] lg:text-[22px] text-bold text-white z-10'>Lost and found</h1>
                 </div>
-              ) : (
-                <p>Loading</p>
-              )}
-            </div>
-            <div className='fixed bottom-0 right-0 p-5 z-10'>
-              <button onClick={togglePopup} className='bg-green-400 p-3 rounded-2xl text-white active:scale-90'>Report item</button>
+              </Link>
+              <div className='p-4'>
+                {user ? (
+                  <div>
+                    <Drawer>
+                      <DrawerTrigger asChild>
+                        {
+                          user ? (
+                            <div className='relative rounded-[50%] cursor-pointer overflow-hidden '>
+                              <Image width={45} height={45} src={user.photoURL} alt='UserImage'
+                                className="z-10 w-[25px] h-[25px] lg:h-[40px] lg:w-[40px]"
+                              />
+                            </div>
+                          )
+                            :
+                            (
+                              <Button>User</Button>
+                            )
+                        }
+                      </DrawerTrigger>
+                      <DrawerContent>
+                        <div className="mx-auto w-full max-w-sm">
+                          <DrawerHeader>
+                            <div className='flex z-10'>
+                              <div className='align-center h-[50px] w-[50px] rounded-[50%] border-solid border-[2px] cursor-pointer overflow-hidden'>
+                                <Image width={100} height={100} src={user.photoURL} alt='UserImage' className='z-10' />
+                              </div>
+                              <div className='pl-5 mt-4'>
+                                <DrawerTitle>Hi {user.displayName || user.email} 👋</DrawerTitle>
+                              </div>
+                            </div>
+                            <div><h3 className='pl-4 text-left'>{rollNumber}</h3></div>
+                            <DrawerDescription>Indian institute of information technology, Jabalpur</DrawerDescription>
+                          </DrawerHeader>
+
+                          <DrawerFooter>
+                            <Button className='bg-red-700 hover:bg-red-800' onClick={handleSignOut}>Sign Out</Button>
+                            <DrawerClose asChild>
+                              <Button variant="outline">Close</Button>
+                            </DrawerClose>
+                          </DrawerFooter>
+                        </div>
+                      </DrawerContent>
+                    </Drawer>
+                  </div>
+                ) : (
+                  <p>Loading</p>
+                )}
+              </div>
+
             </div>
           </div>
+          <div className='fixed bottom-2 right-5 mb-2 lg:m-8 cursor-pointer z-10 active:scale-95 ease-in-out' onClick={togglePopup}>
+            <Image
+              height={60}
+              width={60}
+              alt="logo"
+              src={add2}
+              className="z-10 "
+            />
+          </div>
 
-          <div className='flex w-full flex-col place-items-center items-center justify-center pl-[15px] pb-2 sm:pl-[50px] lg:pl-[110px] '>
+
+          <div className='flex w-full mt-[20px] mb-[50px] flex-col place-items-center items-center justify-center pl-[15px] pb-2 sm:pl-[50px] lg:pl-[110px] '>
             <Items data={data} />
           </div>
 

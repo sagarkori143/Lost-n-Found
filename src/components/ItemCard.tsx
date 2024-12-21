@@ -79,7 +79,7 @@ function ItemCard({ item, index }: Prop) {
           duration: 0.5,
         }}
         viewport={{ amount: 0 }}
-        className="max-w-md rounded-lg relative w-full bg-[#1A1D29] shadow-lg hover:shadow-xl hover:scale-105 transition-transform duration-300 ease-in-out"
+        className="max-w-md rounded-xl rounded-t-xl relative w-full bg-[#1A1D29] border-[2px] border-gray-500 shadow-lg hover:shadow-xl hover:scale-105 transition-transform duration-300 ease-in-out"
       >
         {/* Image Section */}
         <div className="relative w-full h-[30vh] overflow-hidden rounded-t-lg" onClick={() => setIsModalOpen(true)}>
@@ -94,7 +94,7 @@ function ItemCard({ item, index }: Prop) {
         </div>
 
         {/* Details Section */}
-        <div className="py-4 px-4 flex flex-col gap-3">
+        <div className="py-4 px-4 flex flex-col gap-3" onClick={() => setIsModalOpen(true)}>
           {/* Title and Type */}
           <div className="flex justify-between items-center gap-2">
             <h2 className="font-bold text-white text-xl line-clamp-1 w-full">
