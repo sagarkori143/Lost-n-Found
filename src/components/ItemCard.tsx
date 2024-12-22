@@ -116,10 +116,18 @@ function ItemCard({ item, index }: Prop) {
       {isModalOpen && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50" onClick={() => setIsModalOpen(false)}>
           <div className="bg-[rgba(213,203,203,0.08)] shadow-lg shadow-[rgba(0,0,0,0.1)] backdrop-blur-[10px] border border-[rgba(213,203,203,0.74)] rounded-2xl text-sm lg:text-lg md:text-lg m-4 p-4 lg:p-6 max-w-lg w-full" onClick={(e) => e.stopPropagation()}>
-            <h2 className="text-md text-white lg:text-lg font-bold mb-4">{item.title}</h2>
-            <p className="text-sm text-white">
-              <strong>Description:</strong> {item.description}
+            <h2 className="text-[15px] text-white lg:text-lg font-bold mb-4 text-center">{item.title}</h2>
+            <p className="text-[14px] text-gray-200">
+             {item.description}
             </p>
+            <p className="flex items-baseline mt-2">
+                <span className="text-gray-400 text-[13px]">
+                  {item.dateLostFound.split("T")[0].split("-").reverse().join("-")}
+                </span>
+              </p>
+
+              <hr className="mt-2 mb-2"></hr>
+              <span className="text-gray-400 text-[13px]">Contact the author:</span>
             <div className="flex flex-col gap-2 mt-4">
               
               {item.phone.length >= 10 && (
@@ -131,7 +139,7 @@ function ItemCard({ item, index }: Prop) {
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    {item.phone}
+                    <span className="text-[14px] lg:text-[15px]">Make a Call</span>
                   </a>
                 </p>
               )}
@@ -145,7 +153,7 @@ function ItemCard({ item, index }: Prop) {
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    {item.email}
+                  <span className="text-[14px] lg:text-[15px]">Send Email</span>
                   </a>
                 </p>
               )}
@@ -159,23 +167,17 @@ function ItemCard({ item, index }: Prop) {
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                  {item.whatsapp}
+                  <span className="text-[14px] lg:text-[15px]">Chat on WhatsApp</span>
                   </a>
                 </p>
               )}
 
-              <p className="flex items-baseline mt-2">
-                <span className="text-white text-sm">
-                  {item.type} on:{" "}
-                  {item.dateLostFound.split("T")[0].split("-").reverse().join("-")}
-                </span>
-              </p>
             </div>
 
             <div className="mt-4 flex justify-end gap-2">
               <button
                 onClick={() => setIsModalOpen(false)}
-                className="px-4 py-2 bg-red-500 text-white rounded"
+                className="px-2 lg:p-4 py-1 lg:py-2 bg-red-500 text-white rounded"
               >
                 Close
               </button>
