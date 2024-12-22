@@ -115,48 +115,53 @@ const ReportItemPopup: React.FC = () => {
   }, []);
 
   return (
-    <div className="text-white flex-col border-[2px] rounded-xl min-h-[85%] border-black p-5">
-      <form onSubmit={handleSubmit} encType="multipart/form-data" className="flex flex-col gap-5">
-        <div className="grid gap-2">
-          <Label htmlFor="title">Title</Label>
+    <div className="text-white flex-col rounded-xl min-h-[85%] max-w-[100%] box-border overflow-x-hidden p-5">
+      <form onSubmit={handleSubmit} encType="multipart/form-data" className="flex flex-col gap-4">
+        <div className=" grid gap-2">
+          <Label htmlFor="title" className="text-[13px]">Title</Label>
           <Input
             type="text"
             placeholder="Title"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
             required
+            className="h-7 text-white text-[13px]"
           />
         </div>
 
         <div className="grid w-full gap-1.5">
-          <Label htmlFor="description">Item Description</Label>
+          <Label htmlFor="description" className="text-[13px]">Item Description</Label>
           <Textarea
             placeholder="Description"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
             required
+            className="h-7 text-white text-[13px]"
           />
         </div>
 
         <div className="grid gap-2 text-gray-400">
-          <Label htmlFor="dateLostFound" className="text-white">Date Lost/Found</Label>
+          <Label htmlFor="dateLostFound" className="text-white text-[13px]">Date Lost/Found</Label>
           <Input
             type="date"
             value={dateLostFound}
             onChange={(e) => setDateLostFound(e.target.value)}
             required
+            className="h-7 text-gray-400 text-[13px]"
           />
         </div>
         <div className="grid gap-2 text-gray-400 ">
-          <label htmlFor="status-select">Type </label>
+          <label htmlFor="status-select" className="text-[13px]">Type </label>
           <select
             value={type}
             onChange={(e) => setType(e.target.value)}
-            id="status-select" className="bg-black text-white p-2 rounded border border-white" >
+            id="status-select" className="bg-transparent text-gray-400 text-[13px] p-2 rounded border border-white h-8 focus:bg-transparent" >
             <option value="Lost">Lost</option>
             <option value="Found">Found</option>
           </select>
         </div>
+        <hr className="mt-3 text-gray-400"></hr>
+        <span className="text-[10px] lg:text-[13px] font-bold text-gray-400">Please add at least one way to contact:</span>
         <div className="grid gap-2">
           <Label htmlFor="phone">Phone</Label>
           <Input
@@ -164,49 +169,53 @@ const ReportItemPopup: React.FC = () => {
             placeholder="Phone"
             value={phone}
             onChange={(e) => setPhone(e.target.value)}
+            className="h-7 text-white text-[13px]"
           />
         </div>
 
         <div className="grid gap-2">
-          <Label htmlFor="whatsapp">Whatsapp</Label>
+          <Label htmlFor="whatsapp" className="text-[13px]">Whatsapp</Label>
           <Input
             type="tel"
             placeholder="Whatsapp"
             value={whatsapp}
             onChange={(e) => setWhatsapp(e.target.value)}
+            className="h-7 text-white text-[13px]"
           />
         </div>
 
         <div className="grid gap-2">
-          <Label htmlFor="email">Email</Label>
+          <Label htmlFor="email" className="text-[13px]">Email</Label>
           <Input
             type="email"
             placeholder="Email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            className="h-7 text-white text-[13px]"
           />
         </div>
 
-        <div className="grid gap-2">
-          <Label htmlFor="images">Images</Label>
+        <div className="grid gap-2 mb-2">
+          <Label htmlFor="images" className="text-[13px]">Images</Label>
           <input
             type="file"
             multiple
             accept="image/*"
             onChange={handleFileChange}
             required
+            className="text-[11px] lg:text-[15px] text-white"
           />
         </div>
 
         {/* This is the submit button */}
         <div className="flex items-center justify-center">
           {loading ? (
-            <Button className="w-[50%] bg-white text-black" disabled>
+            <Button className="w-[100%] h-[25px] lg:h-[35px] text-[12px] lg:text-[14px] font-bold rounded-sm bg-white text-black" disabled>
               <Loader2 className="animate-spin" />
               Submitting
             </Button>
           ) : (
-            <Button className="w-[50%] bg-white text-black hover:bg-gray-400 hover:text-black" type="submit">
+            <Button className="w-[100%] h-[25px] lg:h-[35px] text-[12px] lg:text-[14px] font-bold rounded-sm bg-white text-black hover:bg-gray-400 active:bg-gray-400" type="submit">
               Submit
             </Button>
           )}

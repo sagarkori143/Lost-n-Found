@@ -149,8 +149,7 @@ const Dashboard = () => {
                             </div>
                             
                             <DrawerDescription>
-                            <p className='text-left lg:text-[18px] '>{rollNumber}</p>
-                            <p className='text-left lg:text-[17px] '>Indian institute of information technology, Jabalpur</p>
+                            <p className='text-left lg:text-[17px] flex flex-col '> <span>{rollNumber}</span>  Indian institute of information technology, Jabalpur</p>
                             </DrawerDescription>
                           </DrawerHeader>
 
@@ -177,7 +176,7 @@ const Dashboard = () => {
               width={60}
               alt="logo"
               src={add2}
-              className="z-10 "
+              className="z-10 hover:scale-110 transition-all ease-in-out duration-300 "
             />
           </div>
 
@@ -189,10 +188,10 @@ const Dashboard = () => {
 
           {isPopupOpen ? (
             <div className="text-white fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-20 " onClick={togglePopup}>
-              <div className="bg-black border-[2px] border-white overflow-auto flex-col justify-center items-center lg:p-6 lg:m-6 p-2 rounded-3xl shadow-lg max-h-[80vh] h-full w-full max-w-[90vw] md:max-w-[70vw] lg:max-w-[60vw]" onClick={(e) => e.stopPropagation()}>
-                <h1 className='text-center text-[20px]'>Report new item!</h1>
+              <div className="bg-[rgba(213,203,203,0.08)] shadow-lg shadow-[rgba(0,0,0,0.1)] backdrop-blur-[10px] border border-[rgba(213,203,203,0.74)] rounded-3xl overflow-auto flex-col justify-center items-center lg:p-6 lg:m-6 p-2 lg:max-h-[80vh] h-full max-h-[60vh] w-full max-w-[80vw] md:max-w-[70vw] lg:max-w-[60vw]" onClick={(e) => e.stopPropagation()}>
+                <h1 className='text-center text-[15px] lg:text-[20px]'>Report new item!</h1>
                 <ReportItemPopup />
-                <div className='pt-3 items-center flex justify-end'><Button variant="destructive" onClick={togglePopup}>Cancel</Button></div>
+                <div className='pt-3 items-center flex justify-end'><Button variant="destructive" className='h-[23px] mb-2 mr-2 lg:h-[32px]' onClick={togglePopup}>Cancel</Button></div>
               </div>
             </div>
           ) : ("")}

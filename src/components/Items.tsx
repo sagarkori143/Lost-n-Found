@@ -25,7 +25,7 @@ export const Items: React.FC<{ data: DataType[] | null }> = ({ data }) => {
   const [sort, setSort] = useState<string>('newest');
 
   if (!data) {
-    return <p>No data available.</p>;
+    return <p className='text-white text-[18px] lg:text-[22px]'>No data available.</p>;
   }
 
   // Filter logic
