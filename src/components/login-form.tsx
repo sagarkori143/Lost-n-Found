@@ -13,6 +13,7 @@ import {
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Loader2 } from "lucide-react";
+import { toast } from 'react-hot-toast';
 
 // Imports for login functions and states management
 import { useState } from 'react';
@@ -61,14 +62,15 @@ export function LoginForm({
       if (user.email && !user.email.endsWith('@iiitdmj.ac.in')) {
         setLoading(false);
         await auth.signOut();
-        alert('Please use your institute email.');
-        console.log("Please use institute email id")
+        toast.error("Please use your institute email!")
       } else {
-        router.push('/dashboard'); // Redirect to dashboard if login is successful
+        router.push('/dashboard');
+        toast.success("Successfully logged in.") 
       }
     } catch (err) {
       setLoading(false);
-      setError('Failed to log in with Google.');
+      toast.error("Something went wrong while logging in!")
+      console.log(err)
     }
   };
 

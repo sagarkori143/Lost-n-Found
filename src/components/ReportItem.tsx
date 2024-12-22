@@ -7,6 +7,8 @@ import { auth } from '../lib/firebase';
 import { useRouter } from 'next/navigation';
 // For the UI components
 import { Button } from "@/components/ui/button";
+import { toast } from 'react-hot-toast';
+import {Filter} from 'bad-words';
 import {
   Card,
   CardContent,
@@ -32,6 +34,7 @@ const ReportItemPopup: React.FC = () => {
   const [collegeEmail, setCollegeEmail] = useState<string>("");
   const [images, setImages] = useState<File[]>([]);
   const [loading, setLoading] = useState(false);
+  const [safe,setSafe]= useState<boolean>(true);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
@@ -42,7 +45,7 @@ const ReportItemPopup: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
+   
     const formData = new FormData();
     formData.append("title", title);
     formData.append("description", description);
@@ -58,9 +61,27 @@ const ReportItemPopup: React.FC = () => {
     formData.append("photoURL", photoURL);
     images.forEach((image) => formData.append("images", image));
     console.log(formData.get("type"));
+    
 
+    // before trying, lets check for false words in text.
+    const filter = new Filter();
+    filter.addWords('customBadWord1', 'customBadWord2'); // Add custom words if needed
+    
+    const moderateText = (text: string) => {
+      return !filter.isProfane(text);
+    };
+    if (!moderateText(title) || !moderateText(description)) {
+      setSafe(false);
+    }
+
+    // Now lets try to post this data
     try {
       setLoading(true);
+      if(!safe){
+        setLoading(false);
+        toast.error("Unacceptable words detected in either Title or Description!")
+        return;
+      }
       const response = await fetch("https://lost-n-found-orcin.vercel.app/api/items", {
       //const response = await fetch("http://localhost:3000/api/items", {
         method: "POST",
@@ -74,7 +95,7 @@ const ReportItemPopup: React.FC = () => {
       });
 
       if (response.ok) {
-        alert("Item added successfully!");
+        toast.success("Item added successfully!");
         setLoading(false);
         setTitle("");
         setDescription("");
