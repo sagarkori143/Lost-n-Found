@@ -106,7 +106,7 @@ function ItemCard({ item, index }: Prop) {
             {item.description}
           </div>
           <div className="">
-            <p className="text-gray-400 text-[11px] lg:text-sm align-baseline">Reported by <span className="font-bold text-gray-300">{item.username}</span> </p>
+          <p className="text-gray-300 text-sm align-baseline">Reported by <span className="font-bold">{item.username}</span><span className="text-[12px] text-gray-500">{` ${time}`}</span> </p>
           </div>
 
           {/* Optional Additional Details */}
