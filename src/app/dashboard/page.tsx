@@ -70,8 +70,8 @@ const Dashboard = () => {
     const fetchData = async () => {
       try {
         // Use the local host one while working on local host
-        const response = await fetch("https://lost-n-found-orcin.vercel.app/api/items", {
-        //const response = await fetch("http://localhost:3000/api/items", {
+        //const response = await fetch("https://lost-n-found-orcin.vercel.app/api/items", {
+        const response = await fetch("http://localhost:3000/api/items", {
           method: "GET",
         });
         if (!response.ok) {
@@ -155,9 +155,9 @@ const Dashboard = () => {
                           </DrawerHeader>
 
                           <DrawerFooter>
-                            <Button className='bg-red-700 hover:bg-red-800' onClick={handleSignOut}>Sign Out</Button>
+                            <Button className='h-6 lg:h-[30px] text-[13px] bg-red-700 hover:bg-red-800 font-semibold' onClick={handleSignOut}>Sign Out</Button>
                             <DrawerClose asChild>
-                              <Button variant="outline">Close</Button>
+                              <Button variant="outline" className='h-6 lg:h-[30px] text-[13px] font-semibold'>Close</Button>
                             </DrawerClose>
                           </DrawerFooter>
                         </div>
@@ -173,16 +173,16 @@ const Dashboard = () => {
           </div>
           <div className='fixed bottom-2 right-5 mb-2 lg:m-8 cursor-pointer z-10 active:scale-95 ease-in-out' onClick={togglePopup}>
             <Image
-              height={60}
-              width={60}
+              height={50}
+              width={50}
               alt="logo"
               src={add2}
-              className="z-10 hover:scale-110 transition-all ease-in-out duration-300 "
+              className="z-10 hover:scale-110 lg:h-[70px] lg:w-[70px] transition-all ease-in-out duration-300 "
             />
           </div>
 
 
-          <div className='flex w-full mt-[20px] mb-[50px] flex-col place-items-center items-center justify-center pl-[15px] pb-2 sm:pl-[50px] lg:pl-[110px] '>
+          <div className='flex w-[86%] mt-[20px] mb-[50px] flex-col place-items-center items-center justify-center pb-2 '>
             <Items data={data} />
           </div>
 

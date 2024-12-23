@@ -51,11 +51,11 @@ export const Items: React.FC<{ data: DataType[] | null }> = ({ data }) => {
   });
 
   return (
-    <div>
-      <div className="flex justify-between mb-4 pr-4 lg:pr-[75px] lg:pl-2">
+    <div className='w-[89%]'>
+      <div className="flex justify-between mb-4 pr-2 pl-1 lg:pr-[75px] lg:pl-2">
         {/* Filter Options */}
         <select
-          className="h-[30px] border rounded bg-black text-white border-gray-500 p-1 text-[14px] lg:text-[17px]"
+          className="h-[25px] lg:h-[30px] border rounded-md bg-black text-white border-gray-500 p-1 text-[12px] lg:text-[17px]"
           value={filter}
           onChange={(e) => setFilter(e.target.value)}
         >
@@ -66,7 +66,7 @@ export const Items: React.FC<{ data: DataType[] | null }> = ({ data }) => {
 
         {/* Sort Options */}
         <select
-          className="h-[30px] border rounded bg-black text-white border-gray-500 p-1 text-[14px] lg:text-[17px]"
+          className="h-[25px] lg:h-[30px] border rounded-md bg-black text-white border-gray-500 p-1 text-[12px] lg:text-[17px]"
           value={sort}
           onChange={(e) => setSort(e.target.value)}
         >
@@ -76,7 +76,7 @@ export const Items: React.FC<{ data: DataType[] | null }> = ({ data }) => {
         </select>
       </div>
 
-      <section className="grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-10 h-[40%] w-[95%]">
+      <section className="grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-10 h-[40%] w-[100%]">
         {sortedData.map((item: ItemProp, index) => (
           <ItemCard key={item._id} item={item} index={index} />
         ))}

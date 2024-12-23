@@ -79,7 +79,7 @@ function ItemCard({ item, index }: Prop) {
           duration: 0.5,
         }}
         viewport={{ amount: 0 }}
-        className="max-w-md rounded-xl rounded-t-xl relative w-full bg-[#1A1D29] border-[2px] border-gray-500 shadow-lg hover:shadow-xl hover:scale-105 transition-transform duration-300 ease-in-out"
+        className="max-w-md min-w-[90%] rounded-xl rounded-t-xl relative box-border overflow-clip bg-[#1A1D29] border-[2px] border-gray-500 shadow-lg hover:shadow-xl hover:scale-105 transition-transform duration-300 ease-in-out"
       >
         {/* Image Section */}
         <div className="relative w-full h-[30vh] overflow-hidden rounded-t-lg" onClick={() => setIsModalOpen(true)}>
@@ -91,22 +91,22 @@ function ItemCard({ item, index }: Prop) {
           />
         </div>
 
-        <div className="py-4 px-4 flex flex-col gap-3" onClick={() => setIsModalOpen(true)}>
+        <div className="py-4 px-4 flex flex-col gap-2 lg:gap-3" onClick={() => setIsModalOpen(true)}>
           <div className="flex justify-between items-center gap-2">
-            <h2 className="font-bold text-white text-lg lg:text-xl line-clamp-1 w-full">
+            <h2 className="font-bold text-white text-md lg:text-xl line-clamp-1 w-full">
               {item.title}
             </h2>
-            <div className={`py-1 px-2 ${colorVariants[color]} rounded-sm`}>
-              <p className="text-white text-sm font-bold capitalize">
+            <div className={`px-1 lg:p-1 ${colorVariants[color]} rounded-sm`}>
+              <p className="text-white text-[12px] lg:text-sm font-bold capitalize">
                 {item.type}
               </p>
             </div>
           </div>
-          <div className="text-white text-sm line-clamp-3">
+          <div className="text-white text-[12px] lg:text-sm line-clamp-3">
             {item.description}
           </div>
           <div className="">
-            <p className="text-gray-300 text-sm align-baseline">Reported by <span className="font-bold">{item.username}</span><span className="text-[12px] text-gray-500">{` ${time}`}</span> </p>
+            <p className="text-gray-400 text-[11px] lg:text-sm align-baseline">Reported by <span className="font-bold text-gray-300">{item.username}</span> </p>
           </div>
 
           {/* Optional Additional Details */}
