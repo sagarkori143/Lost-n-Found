@@ -70,8 +70,8 @@ const Dashboard = () => {
     const fetchData = async () => {
       try {
         // Use the local host one while working on local host
-        //const response = await fetch("https://lost-n-found-orcin.vercel.app/api/items", {
-        const response = await fetch("http://localhost:3000/api/items", {
+        const response = await fetch("https://lost-n-found-orcin.vercel.app/api/items", {
+        //const response = await fetch("http://localhost:3000/api/items", {
           method: "GET",
         });
         if (!response.ok) {
