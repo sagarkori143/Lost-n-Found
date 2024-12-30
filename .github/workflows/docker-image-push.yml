@@ -41,5 +41,5 @@ jobs:
             --build-arg CLOUDINARY_API_KEY=${{ secrets.CLOUDINARY_API_KEY }} \
             --build-arg CLOUDINARY_API_SECRET=${{ secrets.CLOUDINARY_API_SECRET }} \
             --build-arg NEXT_PUBLIC_API_URL=${{ secrets.NEXT_PUBLIC_API_URL }} \
-            -t your-dockerhub-username/my-nextjs-app:latest .
-          docker push your-dockerhub-username/my-nextjs-app:latest
+            -t sagarkori143/lost-n-found:latest .
+          docker push sagarkori143/lost-n-found:latest
