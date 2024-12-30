@@ -1,31 +1,60 @@
+# Use Node.js base image
 FROM node:18-alpine AS builder
 
+# Set the working directory inside the container
 WORKDIR /app
 
+# Copy package.json and package-lock.json
 COPY package*.json ./
+
+# Install dependencies
 RUN npm install
 
+# Copy the rest of the application code
 COPY . .
 
-# Set MONGODB_URI environment variable for build
+# Set environment variables using build arguments for public Firebase and other variables
+ARG NEXT_PUBLIC_FIREBASE_API_KEY
+ARG NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN
+ARG NEXT_PUBLIC_FIREBASE_PROJECT_ID
+ARG NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET
+ARG NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID
+ARG NEXT_PUBLIC_FIREBASE_APP_ID
+ARG NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID
 ARG MONGODB_URI
-ENV MONGODB_URI=${MONGODB_URI}
+ARG CLOUDINARY_CLOUD_NAME
+ARG CLOUDINARY_API_KEY
+ARG CLOUDINARY_API_SECRET
+ARG NEXT_PUBLIC_API_URL
 
+# Set these as ENV variables for runtime (client-side)
+ENV NEXT_PUBLIC_FIREBASE_API_KEY=${NEXT_PUBLIC_FIREBASE_API_KEY}
+ENV NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=${NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN}
+ENV NEXT_PUBLIC_FIREBASE_PROJECT_ID=${NEXT_PUBLIC_FIREBASE_PROJECT_ID}
+ENV NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=${NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET}
+ENV NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=${NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID}
+ENV NEXT_PUBLIC_FIREBASE_APP_ID=${NEXT_PUBLIC_FIREBASE_APP_ID}
+ENV NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID=${NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID}
+ENV MONGODB_URI=${MONGODB_URI}
+ENV CLOUDINARY_CLOUD_NAME=${CLOUDINARY_CLOUD_NAME}
+ENV CLOUDINARY_API_KEY=${CLOUDINARY_API_KEY}
+ENV CLOUDINARY_API_SECRET=${CLOUDINARY_API_SECRET}
+ENV NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL}
+
+# Build the Next.js app
 RUN npm run build
 
+# Use the same Node.js image to serve the app
 FROM node:18-alpine AS runner
 
+# Set the working directory inside the container
 WORKDIR /app
 
-# Copy the built app from the builder
-COPY --from=builder /app/.next ./.next
-COPY --from=builder /app/package.json ./
+# Copy only the necessary files for the runner
+COPY --from=builder /app /app
 
-# Install production dependencies
-RUN npm install --only=production
-
-# Expose the port used by Next.js
+# Expose the port the app will run on
 EXPOSE 3000
 
-# Run the Next.js app
+# Command to run the app
 CMD ["npm", "start"]
