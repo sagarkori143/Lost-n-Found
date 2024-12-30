@@ -7,6 +7,10 @@ RUN npm install
 
 COPY . .
 
+# Set MONGODB_URI environment variable for build
+ARG MONGODB_URI
+ENV MONGODB_URI=${MONGODB_URI}
+
 RUN npm run build
 
 FROM node:18-alpine AS runner
