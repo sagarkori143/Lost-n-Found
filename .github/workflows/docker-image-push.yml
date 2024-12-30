@@ -27,7 +27,11 @@ jobs:
 
       
       - name: Build Docker image
-        run: docker build -t your-dockerhub-username/my-nextjs-app:latest .
+        run: |
+        docker build \
+          --build-arg MONGODB_URI=${{ secrets.MONGODB_URI }} \
+          -t your-dockerhub-username/my-nextjs-app:latest .
+        docker push your-dockerhub-username/my-nextjs-app:latest
 
       
       - name: Push Docker image

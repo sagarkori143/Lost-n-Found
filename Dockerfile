@@ -6,7 +6,7 @@ COPY package*.json ./
 RUN npm install
 
 COPY . .
-COPY .env.local .env.local
+
 RUN npm run build
 
 FROM node:18-alpine AS runner
